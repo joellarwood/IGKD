@@ -1,0 +1,13 @@
+MES I (Cognitive and Emotion Regulation) 
+
+MESI1_timepoint	      I often listen to music when I'm feeling down 
+MESI2_timepoint	      Specific types of music make me feel better
+MESI3_timepoint	      Music often takes away tension at the end of the day 
+MESI4_timepoint	      I often listen to new compositions 
+MESI5_timepoint	      I use a particular type of music to get me through tough times 
+MESI6_timepoint	      Music is often a source of inspiration for me 
+MESI7_timepoint	      Certain types of music help me think 
+
+R CODE 
+Cognitive and Emotion Regulation 
+mydata$MESI <- (mydata$MESI1_timepoint + mydata$MESI2_timepoint + mydata$MESI3_timepoint + mydata$MESI4_timepoint + mydata$MESI5_timepoint + mydata$MESI6_timepoint + mydata$MESI7_timepoint)
