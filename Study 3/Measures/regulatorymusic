@@ -1,0 +1,60 @@
+Regulatory Music Choices 
+
+Item                                                                                        Response 
+  
+regmu               What is a song you like to listen to when you are sad?                  Free response
+
+regmucoded*          Idendependently coded according to (find coding referecnece - Juslin   0 = Not sad 
+                    and Laukka?)                                                            1 = Sad 
+
+regwhy              Why is this a song you like to listen to when sad?                      Free response
+
+regwhycoded         Independently scored according adapted MecScale and MMR
+
+regwhyB             Brain Stem Reflex                                                       0 = not reason for choosing
+                                                                                            1 = reason for choosing
+                                                                                            
+regwhyRm            Rhythmic Entrainment                                                    0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyEv            Evaluative conditioning                                                 0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyC             Emotional Contagion                                                     0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyV             Visual Imagery                                                          0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyEm            Episodic memory                                                         0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyME            Musical Expectancy                                                      0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyA             Aesthetic Judgement                                                     0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyEn            Entertainment                                                           0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyRe            Revivial                                                                0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhySS            Strong sensation                                                        0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyDn            Diversion                                                               0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyDg            Discahrge                                                               0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhyMw            Mental Work                                                             0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+regwhySo            Solace                                                                  0 = not reason for choosing
+                                                                                            1 = reason for choosing
+
+
+
