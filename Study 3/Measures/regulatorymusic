@@ -4,57 +4,82 @@ Item                                                                            
   
 regmu               What is a song you like to listen to when you are sad?                  Free response
 
-regmucoded*          Idendependently coded according to (find coding referecnece - Juslin   0 = Not sad 
+regmucoded*         Idendependently coded according to (find coding referecnece - Juslin    0 = Not sad 
                     and Laukka?)                                                            1 = Sad 
 
 regwhy              Why is this a song you like to listen to when sad?                      Free response
 
 regwhycoded         Independently scored according adapted MecScale and MMR
 
-regwhyB             Brain Stem Reflex                                                       0 = not reason for choosing
-                                                                                            1 = reason for choosing
+FOR BRECVEMA : Participant describes...
+
+bsr               Musical events that were startling or psychiologically arousing           0 = No
+                                                                                            1 = Yes
                                                                                             
-regwhyRm            Rhythmic Entrainment                                                    0 = not reason for choosing
-                                                                                            1 = reason for choosing
+rm                The music as having a strong and/or captivating beat, pulse or rhytym     0 = No
+                                                                                            1 = Yes
 
-regwhyEv            Evaluative conditioning                                                 0 = not reason for choosing
-                                                                                            1 = reason for choosing
+empos             The music evoking a pleasant memory                                       0 = No
+                                                                                            1 = Yes
 
-regwhyC             Emotional Contagion                                                     0 = not reason for choosing
-                                                                                            1 = reason for choosing
+emneg             The music evoking a unpleasant memory                                     0 = No
+                                                                                            1 = Yes
+                                                                                            
+ecpos             The music evoking more general pleasnt associations                       0 = No
+                                                                                            1 = Yes
 
-regwhyV             Visual Imagery                                                          0 = not reason for choosing
-                                                                                            1 = reason for choosing
+ecneg             The music evoking more general unpleasant associations                    0 = No
+                                                                                            1 = Yes
+                                                                                            
+vi                The music evoking mental images                                           0 = No
+                                                                                            1 = Yes
 
-regwhyEm            Episodic memory                                                         0 = not reason for choosing
-                                                                                            1 = reason for choosing
+conpos            Being moved or touched by the emotion expression of the music in a 
+                  positve manner*                                                           0 = No
+                                                                                            1 = Yes
 
-regwhyME            Musical Expectancy                                                      0 = not reason for choosing
-                                                                                            1 = reason for choosing
+conneg            Being moved or touched by the emotion expression of the music in a
+                  negative manner*                                                          0 = No
+                                                                                            1 = Yes
 
-regwhyA             Aesthetic Judgement                                                     0 = not reason for choosing
-                                                                                            1 = reason for choosing
+me                Finding the melody of the music unpredictable                             0 = No
+                                                                                            1 = Yes
+                                                                                            
+aj                The music as aestehtically valuable*                                      0 = No
+                                                                                            1 = Yes
 
-regwhyEn            Entertainment                                                           0 = not reason for choosing
-                                                                                            1 = reason for choosing
 
-regwhyRe            Revivial                                                                0 = not reason for choosing
-                                                                                            1 = reason for choosing
+* A participant who reports being moved positively by negative emotion in a song is making an aesthetic judgement not experiencing emotional contagion. For emotional contagion to be the emotional experience of the participant must match that expressed by the song
 
-regwhySS            Strong sensation                                                        0 = not reason for choosing
-                                                                                            1 = reason for choosing
+bsr = Brain stem reflex, empos = pleasant episodic memory, emneg = unpleasant episodic memory, ecpos = pleasant evaluative conditioning, ecneg = unpleasant evaluative conditioning, vi = visual imagery, conpos = Emotional contaigion in a positive direction, conneg = emotional contagion in a negative direction, me = musical expenctancy, aj = aesthetic judgment 
+Ref: Juslin, Harmat and Eerola (2014, Sakka and Juslin (2017)
 
-regwhyDn            Diversion                                                               0 = not reason for choosing
-                                                                                            1 = reason for choosing
+For MMR : Participant describes
 
-regwhyDg            Discahrge                                                               0 = not reason for choosing
-                                                                                            1 = reason for choosing
+en                  Using music in the background while doing another activity              0 = No
+                                                                                            1 = Yes
+                                                                                            
+rev                 Listening to musi as a way to relax or restore energy                   0 = No
+                                                                                            1 = Yes
 
-regwhyMw            Mental Work                                                             0 = not reason for choosing
-                                                                                            1 = reason for choosing
+ss                  Using music to strengthen the emotion they are feeling or 
+                    feel an emotion on a deeper level                                       0 = No 
+                                                                                            1 = Yes
+                                                                                            
+div                 Listening to music to distract themselves or forget about their 
+                    emotions or thoughts                                                    0 = No
+                                                                                            1 = Yes
 
-regwhySo            Solace                                                                  0 = not reason for choosing
-                                                                                            1 = reason for choosing
+dis                 Using music to express or expel their emotions or achieve catharsis     0 = No
+                                                                                            1 = Yes
+                                                                                            
+mw                  Using music to help themselves cognitively process or clarify their
+                    emotions, give new insights or perspectives                             0 = No
+                                                                                            1 = Yes
+                                                                                            
+so                  Listening to music to find comfort or feel understood in their 
+                    emotional experience                                                    0 = No
+                                                                                            1 = Yes
 
-NOTE: BRECVEMA coding adapted from Juslin, Harmat and Eerola (2014) and MMR coding adapted from Saarikallio (2012)
-
+en = entertainment, rev = revival, ss = strong sensation, div = diversion, dis = discharge, mw = mental work, so = solace
+REF: Saarikallio and Errkila (2007)
