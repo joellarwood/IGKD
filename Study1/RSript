@@ -1,1 +1,11 @@
-#Download file
+#dataset name = igkd1
+
+#H1: Listening to music would lead to a decrease from post-induction to post-listening 
+
+#Make id a facotr 
+factor(igkd1%id)
+
+Create long formatted data 
+library(tidyr)
+igkd1long <- gatehr (igkd1, timepoint, sadness, POMS_dep_1_LN:POMS_dep_3_LN)
+
