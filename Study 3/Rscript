@@ -1,1 +1,38 @@
 #import data set - call igkd3
+
+#create depression
+igkd$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16 + mydata$DASS17 + igkd3$DASS21_1) * 2 
+
+#create DERStotal
+igkd3$ders <- rowSums (subset(igkd3, select=DERS1_1:DERS16_1))
+
+#Create MES I
+igkd3$mesi <- rowSums (subset(igkd3, select=MESI1_1:MESI7_1))
+
+#Create rumination 
+library(car)
+igkd3$RUM6r <- recode (RUM6_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
+igkd3$RUM9r <- recode (RUM9_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
+igkd3$RUM10r <- recode (RUM10_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
+
+attach(igkd3)
+igkd3$rum <- RUM1_1 + RUM2_1 + RUM3_1 + RUM4_1 + RUM5_1 + RUM6r + RUM7_1 + RUM8_1 + RUM9r + RUM10r + RUM11_1 + RUM12_1
+detach(igkd3)
+
+#Moderated mediation all data
+library("devtools")
+library("lavaan")
+install.packages("broom")
+library("broom")
+install_github("markwhiteii/processr")
+
+modmedall <- model7(iv="mesi", dv="depression", med="ders", mod="rum", data=igkd3)
+kable(modmedll)
+
+#moderated mediation just sad musci 
+
+igkd3sad <- subset (igkd3, sad = 1)
+
+modmedsad <- model7 (iv="mesi", dv="depression", med ="ders", mod="rum", data=igkd3sad)
+kable(modmedsad)
+
