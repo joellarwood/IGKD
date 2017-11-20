@@ -1,4 +1,12 @@
 #import data set - call igkd3
+###MISSING DATA ANALYSIS 
+#Variables adequately sampled 
+#Participants adequately sampled 
+
+#Missing data
+
+#Estimation (provided not MNAR) 
+
 
 #create depression
 igkd$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16 + mydata$DASS17 + igkd3$DASS21_1) * 2 
@@ -19,7 +27,10 @@ attach(igkd3)
 igkd3$rum <- RUM1_1 + RUM2_1 + RUM3_1 + RUM4_1 + RUM5_1 + RUM6r + RUM7_1 + RUM8_1 + RUM9r + RUM10r + RUM11_1 + RUM12_1
 detach(igkd3)
 
-#Moderated mediation all data
+#Check for outliers##
+##Remove outliers past ? SDs##
+
+#Moderated mediation all data (Hypothesis 1, 2)
 library("devtools")
 library("lavaan")
 install.packages("broom")
@@ -29,10 +40,39 @@ install_github("markwhiteii/processr")
 modmedall <- model7(iv="mesi", dv="depression", med="ders", mod="rum", data=igkd3)
 kable(modmedll)
 
-#moderated mediation just sad musci 
+#moderated mediation just sad music (Hypothesis 3) 
 
 igkd3sad <- subset (igkd3, sad = 1)
 
 modmedsad <- model7 (iv="mesi", dv="depression", med ="ders", mod="rum", data=igkd3sad)
 kable(modmedsad)
+
+#Comparisons of MMR and BRECVEMA 
+#Create ariable holding endorsement 
+##Step 1 - determine model endorsement 
+igkd3$BRECVEMA <- rowSums (subset (igkd3, select = bsr:aj))
+igkd3$MMR  <- rowSums (subset (igkd3, select = en:so))
+#Dummy code variable indicating endorment 
+igkd3$BRECVEMAbin <- as.numberic (igkd3$BRECVEMA > 0)
+igkd3$MMRbin <- as.numeric (igkd3$MMR > 0 )
+#Recode variables 
+igkd3$BRECVEMAbin <- recode (igkd3$BRECVEMAbin, 1 = 3)
+igkd3$MMRbin <- record (igkd3$MMRbin, 1 = 4) 
+#create merged variable 
+igkd3$mech <- igkd3$BRECVEMAbin + igkd3$MMRbin
+igkd3$mech <- recode (igkd3$mech, 0 = 1, 7 = 2) 
+factor (igkd3$mech, 
+levels = c(1, 2, 3, 4)
+labels = c("neither", "both", "BRECVEMA", "MMR"))
+
+#Step 2 - Chi-square GoF omnibis 
+install.packages("fifer")
+library("fifer")
+mechtable <- table (igkd3$mech)
+chisq.test(igkd$mech)
+##IF SIG##
+chi.sq.post.hoc(mechtable)
+
+
+
 
