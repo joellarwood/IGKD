@@ -1,11 +1,18 @@
 #import data set - call igkd3
 ###MISSING DATA ANALYSIS 
 #Variables adequately sampled 
+colMeans(is.na(igkd3)) # < .5 = variable adequately sampled 
 #Participants adequately sampled 
+rowMeans(is.na(igkd3)) # < .5 = participant adeqautely sampled
 
 #Missing data
+mean(is.na(igkd3)) # <.05 can go ahead an estimate 
+# if > .05 
+install.packages("MissMech")
+library("MissMech")
 
-#Estimation (provided not MNAR) 
+
+
 
 
 #create depression
