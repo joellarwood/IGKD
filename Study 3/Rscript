@@ -1,28 +1,34 @@
-#import data set - call igkd3
+#import data set - call igkd3RAW
 ###MISSING DATA ANALYSIS 
 #Variables adequately sampled 
-colMeans(is.na(igkd3)) # < .5 = variable adequately sampled 
+colMeans(is.na(igkd3RAW)) # < .5 = variable adequately sampled 
 #Participants adequately sampled 
-rowMeans(is.na(igkd3)) # < .5 = participant adeqautely sampled
+rowMeans(is.na(igkd3RAW)) # < .5 = participant adeqautely sampled
 
 #Missing data
-mean(is.na(igkd3)) # <.05 can go ahead an estimate 
+mean(is.na(igkd3RAW)) # <.05 can go ahead an estimate 
 # if > .05 
 install.packages("MissMech")
 library("MissMech")
+testMCARNormality (data = igkd3RAW)
 
-
-
-
+#imputation 
+install.packages("mice")
+library("mice")
+igkd3impute <- (data = igkd3RAW, m = 5, method = "norm", maxit = 100)
+igkd3 <- complete (igkdimpute, action = 1, include = FALSE) 
 
 #create depression
-igkd$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16 + mydata$DASS17 + igkd3$DASS21_1) * 2 
+igkd$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16_1 + mydata$DASS17_1 + igkd3$DASS21_1) * 2
+
 
 #create DERStotal
 igkd3$ders <- rowSums (subset(igkd3, select=DERS1_1:DERS16_1))
 
+
 #Create MES I
 igkd3$mesi <- rowSums (subset(igkd3, select=MESI1_1:MESI7_1))
+
 
 #Create rumination 
 library(car)
@@ -31,11 +37,35 @@ igkd3$RUM9r <- recode (RUM9_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
 igkd3$RUM10r <- recode (RUM10_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
 
 attach(igkd3)
-igkd3$rum <- RUM1_1 + RUM2_1 + RUM3_1 + RUM4_1 + RUM5_1 + RUM6r + RUM7_1 + RUM8_1 + RUM9r + RUM10r + RUM11_1 + RUM12_1
+igkd3$rum <- RUM1_1 + RUM2_1 + RUM3_1 + RUM4_1 + RUM5_1 + RUM6r + RUM7_1 + RUM8_1 + RUM9r + RUM10r + RUM11_1 + RUM12_1)/12
 detach(igkd3)
 
-#Check for outliers##
-##Remove outliers past ? SDs##
+#Remove multivariate outliers, alpha < .001 according to Tabachnik and Fidel 
+mvOutlier(igkd3, qqplot = TRUE, alpha = 0.001, tol = 1e-25, method = c("quan"),  label = TRUE, position = NULL, offset = 0.5)
+
+#get demographics
+#create demograhics dataframe 
+demographics <- igkd3 []
+
+
+#depression alpha 
+#subset depression items 
+depdf <- igkd3[DASS3_1, DASS5_1, DASS10_1, DASS13_1, DASS16_1, DASS17_1, DASS21_1]
+library(psych)
+psych::alpha(depdf) 
+#DERS alpa 
+#subset DERS 
+dersdf <- igkd3[DERS1_1:DERS16_1]
+psych::alpha (dersdf)
+#create MES I alpha 
+#subset MESI 
+mesidf <- igkd3[MESI1_1:MESI7_1] 
+psych::alpha(mesidf)
+
+#rumination alpha 
+#subset rumination 
+rumdf <- igkd3[RUM1_1:RUM5_1, RUM6r, RUM7_1, RUM8_1, RUM9r, RUM10r, RUM11_1, RUM12_1)
+psych::alpha(rumdf)
 
 #Moderated mediation all data (Hypothesis 1, 2)
 library("devtools")
@@ -49,7 +79,8 @@ kable(modmedll)
 
 #moderated mediation just sad music (Hypothesis 3) 
 
-igkd3sad <- subset (igkd3, sad = 1)
+igkd3sad <- subset (igkd3, sad = 1,
+select = c(mesi, depression, dets, rum))
 
 modmedsad <- model7 (iv="mesi", dv="depression", med ="ders", mod="rum", data=igkd3sad)
 kable(modmedsad)
