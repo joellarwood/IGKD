@@ -1,3 +1,6 @@
+igkd3 <- IGKD3_MASTER
+
+igkd3RAW <- igkd3
 #import data set - call igkd3RAW
 ###MISSING DATA ANALYSIS 
 #Variables adequately sampled 
@@ -7,64 +10,56 @@ rowMeans(is.na(igkd3RAW)) # < .5 = participant adeqautely sampled
 
 #Missing data
 mean(is.na(igkd3RAW)) # <.05 can go ahead an estimate 
-# if > .05 
-install.packages("MissMech")
-library("MissMech")
-testMCARNormality (data = igkd3RAW)
 
-#imputation 
-install.packages("mice")
-library("mice")
-igkd3impute <- (data = igkd3RAW, m = 5, method = "norm", maxit = 100)
-igkd3 <- complete (igkdimpute, action = 1, include = FALSE) 
+igkd3 <- igkd3RAW
 
 #create depression
-igkd$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16_1 + mydata$DASS17_1 + igkd3$DASS21_1) * 2
-
+igkd3$depression <- (igkd3$DASS3_1 + igkd3$DASS5_1 + igkd3$DASS10_1 + igkd3$DASS13_1 + igkd3$DASS16_1 + igkd3$DASS17_1 + igkd3$DASS21_1) * 2
+mean(igkd3$depression)
 
 #create DERStotal
 igkd3$ders <- rowSums (subset(igkd3, select=DERS1_1:DERS16_1))
-
+mean(igkd3$ders)
 
 #Create MES I
 igkd3$mesi <- rowSums (subset(igkd3, select=MESI1_1:MESI7_1))
+mean(igkd3$mesi)
+summary(igkd3$mesi)
+skew(igkd3$mesi)
 
-
-#Create rumination 
+#create rumination
 library(car)
-igkd3$RUM6r <- recode (RUM6_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
-igkd3$RUM9r <- recode (RUM9_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
-igkd3$RUM10r <- recode (RUM10_1, 1 = 5 ; 2 = 4 ; 3 = 3 ; 4 = 2 ; 5 = 1)
+igkd3$RUM6r <- igkd3$RUM6_1
+igkd3$RUM6r = recode (igkd3$RUM6,"'1'='5';'2'='4';'3'='3';'4'='2';'5'='1'")
+igkd3$RUM9r = recode (igkd3$RUM9,"'1'='5';'2'='4';'3'='3';'4'='2';'5'='1'")
+igkd3$RUM10r <- recode (igkd3$RUM10, "'1' = '5' ; '2' = '4' ; '3' = '3' ; '4' = '2' ; '5' = '1'")
 
 attach(igkd3)
-igkd3$rum <- RUM1_1 + RUM2_1 + RUM3_1 + RUM4_1 + RUM5_1 + RUM6r + RUM7_1 + RUM8_1 + RUM9r + RUM10r + RUM11_1 + RUM12_1)/12
+igkd3$rum <- (RUM1 + RUM2 + RUM3 + RUM4 + RUM5 + RUM6r + RUM7 + RUM8 + RUM9r + RUM10r + RUM11 + RUM12)/12
 detach(igkd3)
 
-#Remove multivariate outliers, alpha < .001 according to Tabachnik and Fidel 
-mvOutlier(igkd3, qqplot = TRUE, alpha = 0.001, tol = 1e-25, method = c("quan"),  label = TRUE, position = NULL, offset = 0.5)
+mean(igkd3$rum)
 
-#get demographics
-#create demograhics dataframe 
-demographics <- igkd3 []
+skew(igkd3$rum)
+skew(igkd3$depression)
+skew(igkd3$ders)
 
-
-#depression alpha 
-#subset depression items 
-depdf <- igkd3[DASS3_1, DASS5_1, DASS10_1, DASS13_1, DASS16_1, DASS17_1, DASS21_1]
+#get alphas
+#depression alpha
+depdf <- igkd3[,c ("DASS3_1", "DASS5_1", "DASS10_1", "DASS13_1", "DASS16_1", "DASS17_1", "DASS21_1")]
 library(psych)
 psych::alpha(depdf) 
 #DERS alpa 
 #subset DERS 
-dersdf <- igkd3[DERS1_1:DERS16_1]
+dersdf <- igkd3[,c ("DERS1_1", "DERS2_1", "DERS3_1","DERS4_1","DERS5_1","DERS6_1","DERS7_1","DERS8_1", "DERS9_1", "DERS10_1", "DERS11_1", "DERS12_1", "DERS13_1", "DERS14_1", "DERS15_1", "DERS16_1")]
 psych::alpha (dersdf)
 #create MES I alpha 
 #subset MESI 
-mesidf <- igkd3[MESI1_1:MESI7_1] 
+mesidf <- igkd3[,c("MESI1_1", "MESI2_1", "MESI3_1", "MESI4_1", "MESI5_1", "MESI6_1","MESI7_1")] 
 psych::alpha(mesidf)
-
 #rumination alpha 
 #subset rumination 
-rumdf <- igkd3[RUM1_1:RUM5_1, RUM6r, RUM7_1, RUM8_1, RUM9r, RUM10r, RUM11_1, RUM12_1)
+rumdf <- igkd3[,c ("RUM1", "RUM2", "RUM3", "RUM4", "RUM5", "RUM6r", "RUM7", "RUM8", "RUM9r", "RUM10r", "RUM11", "RUM12")]
 psych::alpha(rumdf)
 
 #Moderated mediation all data (Hypothesis 1, 2)
@@ -72,18 +67,35 @@ library("devtools")
 library("lavaan")
 install.packages("broom")
 library("broom")
-install_github("markwhiteii/processr")
+library(knitr)
 
+#testing simple mediation 
+med <- model4(iv = "mesi", dv = "depression", med = "ders", data = igkd3)
+kable(med)
+
+#testing first stage moderated mediation 
 modmedall <- model7(iv="mesi", dv="depression", med="ders", mod="rum", data=igkd3)
-kable(modmedll)
+kable(modmedall)
+
+#exploritory moderation, where rumination moderates relationship between MESI and depression
+install.packages("QuantPsyc")
+library(QuantPsyc)
+
+rummod <- moderate.lm(mesi, rum, depression, igkd3, mc = F)
+summary(rummod)
+
+#exploritory moderation where ders moderates relationship between MESI and depression
+dersmod <- moderate.lm(mesi, ders, depression, igkd3, mc = F)
+summary(dersmod)
 
 #moderated mediation just sad music (Hypothesis 3) 
 
-igkd3sad <- subset (igkd3, sad = 1,
-select = c(mesi, depression, dets, rum))
+igkd3sad <- subset (igkd3, sad = 1, select = c(mesi, depression, ders, rum))
 
 modmedsad <- model7 (iv="mesi", dv="depression", med ="ders", mod="rum", data=igkd3sad)
 kable(modmedsad)
+
+#analysis of music choice 
 
 #Comparisons of MMR and BRECVEMA 
 #Create ariable holding endorsement 
@@ -100,8 +112,8 @@ igkd3$MMRbin <- record (igkd3$MMRbin, 1 = 4)
 igkd3$mech <- igkd3$BRECVEMAbin + igkd3$MMRbin
 igkd3$mech <- recode (igkd3$mech, 0 = 1, 7 = 2) 
 factor (igkd3$mech, 
-levels = c(1, 2, 3, 4)
-labels = c("neither", "both", "BRECVEMA", "MMR"))
+        levels = c(1, 2, 3, 4)
+        labels = c("neither", "both", "BRECVEMA", "MMR"))
 
 #Step 2 - Chi-square GoF omnibis 
 install.packages("fifer")
@@ -110,7 +122,5 @@ mechtable <- table (igkd3$mech)
 chisq.test(igkd$mech)
 ##IF SIG##
 chi.sq.post.hoc(mechtable)
-
-
-
-
+mod <- model1(iv = "mesi", dv = "depression", mod = "rum", data = igkd3)
+kable(mod)
